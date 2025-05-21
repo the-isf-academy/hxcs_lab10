@@ -157,29 +157,18 @@ def player_bullets_collision():
 
         # if a bullet hits the enemy, it respawns
         if bullet.colliderect(enemy):
-            while enemy.collidelist(walls) == -1:
-                enemy.x = random.randint(25, WIDTH - 25)
-                enemy.y = random.randint(25, HEIGHT - 25)
+            enemy.x = random.randint(1,3) * 50 + 25  #only edit the numbers in the brackets 
+            enemy.y = random.randint(1,3)  * 50 + 25
+
+            while enemy.collidelist(walls) != -1:
+                enemy.x = random.randint(1,3) * 50 + 25  #only edit the numbers in the brackets 
+                enemy.y = random.randint(1,3)  * 50 + 25
               
             bullets_to_remove.append(bullet)
 
     # Remove bullets after iteration
     for bullet in bullets_to_remove:
         bullets.remove(bullet)
-
-def update():
-    # CONTROLS WHAT HAPPENS EACH FRAME OF THE GAME
-
-    global bullet_holdoff
-
-    player_movement()
-
-    if game_running == True:    
-        player_bullets_movement()
-        player_bullets_collision()
-
-        control_enemy()
-
 
 
 def control_enemy():
@@ -246,6 +235,20 @@ def control_enemy():
         # if bullet his player
         if bullet.colliderect(player):
             game_running = True
+
+def update():
+    # CONTROLS WHAT HAPPENS EACH FRAME OF THE GAME
+
+    global bullet_holdoff
+
+    player_movement()
+
+    if game_running == True:    
+        player_bullets_movement()
+        player_bullets_collision()
+
+        control_enemy()
+
 
 # runs the game
 pgzrun.go()
